@@ -14,7 +14,7 @@ ENGINE = InnoDB; # Motor de almacenamiento transaccional (ACID)
 
 CREATE TABLE IF NOT EXISTS `laboratorio`.`Articulos` (
 	IDArticulo int not null auto_increment,
-	Nombre varchar(30),
+	Nombre varchar(50),
 	Precio double unsigned not null,
 	Stock int unsigned not null,
 	PRIMARY KEY (IDArticulo)
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `laboratorio`.`Clientes` (
 	CUIT varchar(16) unique,
 	Direccion varchar(50),
 	Observaciones varchar(225),
-	PRIMARY KEY (ClienteID)
+	PRIMARY KEY (IDCliente)
 )
 ENGINE = InnoDB;
 
@@ -39,6 +39,6 @@ ENGINE = InnoDB;
 # DESCRIBE Articulos;
 # DESCRIBE Facturas;
 
-drop table `laboratorio`.`Facturas`;
-drop table `laboratorio`.`Articulos`;
-drop table `laboratorio`.`Clientes`;
+# drop table `laboratorio`.`Facturas`;
+# drop table `laboratorio`.`Articulos`;
+# drop table `laboratorio`.`Clientes`;
