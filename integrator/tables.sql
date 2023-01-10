@@ -4,30 +4,30 @@ USE `laboratorio`;
 CREATE TABLE IF NOT EXISTS `laboratorio`.`Facturas` (
 	Letra char not null,
 	Numero int not null,
-	ClienteID int,
-	ArticuloID int,
+	IDCliente int,
+	IDArticulo int,
 	Fecha date,
-	Monto double,
+	Monto double unsigned, # unsigned = Solo valores positivos
 	PRIMARY KEY (Letra, Numero)
 ) 
 ENGINE = InnoDB; # Motor de almacenamiento transaccional (ACID)
 
 CREATE TABLE IF NOT EXISTS `laboratorio`.`Articulos` (
-	ArticuloID int not null auto_increment,
-	Nombre varchar(25),
-	Precio double,
-	Stock int,
-	PRIMARY KEY (articuloID)
+	IDArticulo int not null auto_increment,
+	Nombre varchar(30),
+	Precio double unsigned not null,
+	Stock int unsigned not null,
+	PRIMARY KEY (IDArticulo)
 )
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `laboratorio`.`Clientes` (
-	ClienteID int not null auto_increment,
-	Nombre varchar(25),
-	Apellido varchar(25),
+	IDCliente int not null auto_increment,
+	Nombre varchar(30) not null,
+	Apellido varchar(30) not null,
 	CUIT varchar(16) unique,
 	Direccion varchar(50),
-	Comentarios varchar(200),
+	Observaciones varchar(225),
 	PRIMARY KEY (ClienteID)
 )
 ENGINE = InnoDB;
@@ -38,3 +38,7 @@ ENGINE = InnoDB;
 # DESCRIBE Clientes;
 # DESCRIBE Articulos;
 # DESCRIBE Facturas;
+
+drop table `laboratorio`.`Facturas`;
+drop table `laboratorio`.`Articulos`;
+drop table `laboratorio`.`Clientes`;
