@@ -103,3 +103,7 @@ DESCRIBE proveedores;
 # ------------------------------ MODULO 3 ------------------------------ #
 
 DROP SCHEMA laboratorio; # PARA PODER REALIZAR EL BACKUP CORRESPONDIENTE
+
+SHOW DATABASES; # compruebo si se genero la base de datos correctamente del BACKUP
+
+USE `laboratorio`; # RE-confirmacion
