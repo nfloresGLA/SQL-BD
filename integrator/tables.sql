@@ -99,3 +99,7 @@ DESCRIBE pedidos_neptuno;
 DESCRIBE empleados;
 DESCRIBE productos_neptuno;
 DESCRIBE proveedores;
+
+# ------------------------------ MODULO 3 ------------------------------ #
+
+DROP SCHEMA laboratorio; # PARA PODER REALIZAR EL BACKUP CORRESPONDIENTE
