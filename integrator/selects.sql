@@ -90,3 +90,39 @@ SELECT upper(concat(LEFT(c.ciudad, 1), LEFT(c.PAIS, 1), RIGHT(c.pais, 2))) AS `C
 
 SELECT n.fecha, LEFT(n.sexo, 1) AS `sexo`, LEFT(n.tipo_parto, 1) AS `TIPO`, replace(n.nacionalidad, "Chilena", "Ciudadana") AS `Nacionalidad`
 FROM nacimientos n;
+
+SELECT * FROM PEDIDOS_NEPTUNO pn
+WHERE year(pn.fechapedido) = 1997;
+
+SELECT * FROM PEDIDOS_NEPTUNO pn
+WHERE pn.fechapedido BETWEEN "1997-08-01" AND "1997-09-31";
+
+SELECT * FROM PEDIDOS_NEPTUNO pn
+WHERE DAY(pn.fechapedido) = 1;
+
+SELECT pn.fechapedido, timestampdiff(DAY, pn.fechapedido, NOW()) AS `DIAS TRANSCURRIDOS`, dayname(pn.fechapedido) as `DIA`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.fechapedido;
+
+SELECT pn.fechapedido, timestampdiff(DAY, pn.fechapedido, NOW()) AS `DIAS TRANSCURRIDOS`, dayname(pn.fechapedido) as `DIA`,
+dayofyear(pn.fechapedido) as `DIA DEL AÑO`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.fechapedido;
+
+SELECT pn.fechapedido, timestampdiff(DAY, pn.fechapedido, NOW()) AS `DIAS TRANSCURRIDOS`, dayname(pn.fechapedido) as `DIA`,
+dayofyear(pn.fechapedido) AS `DIA DEL AÑO`, month(pn.fechapedido) AS `MES`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.fechapedido;
+
+SELECT pn.fechapedido, timestampdiff(DAY, pn.fechapedido, NOW()) AS `DIAS TRANSCURRIDOS`, dayname(pn.fechapedido) as `DIA`,
+dayofyear(pn.fechapedido) AS `DIA DEL AÑO`, month(pn.fechapedido) AS `MES`,
+DATE_ADD(pn.fechapedido, interval 30 day) AS `PRIMER VENCIMIENTO`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.fechapedido;
+
+SELECT pn.fechapedido, timestampdiff(DAY, pn.fechapedido, NOW()) AS `DIAS TRANSCURRIDOS`, dayname(pn.fechapedido) as `DIA`,
+dayofyear(pn.fechapedido) AS `DIA DEL AÑO`, month(pn.fechapedido) AS `MES`,
+DATE_ADD(pn.fechapedido, interval 30 DAY) AS `PRIMER VENCIMIENTO`,
+DATE_ADD(pn.fechapedido, interval 2 MONTH) AS `SEGUNDO VENCIMIENTO`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.fechapedido;
