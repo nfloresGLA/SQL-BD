@@ -69,3 +69,24 @@ WHERE n.ciudad LIKE "B%" AND n.ciudad LIKE "_____";
 SELECT * FROM nacimientos n
 WHERE n.HIJOS_TOTAL > 10
 ORDER BY n.HIJOS_TOTAL ASC;
+
+# ------------------------------ MODULO 3 ------------------------------ #
+
+SELECT cp.IDCliente, cp.nombrecompania, concat(cp.direccion," - ", cp.ciudad," - ", cp.pais) AS `Ubicacion`
+FROM clientes_neptuno cp; # IDCliente, NombreCompania, Direccion, Ciudad, Pais
+
+SELECT cp.IDCliente, cp.nombrecompania, concat_ws(" - ", cp.direccion, cp.ciudad, cp.pais) AS `Ubicacion`
+FROM clientes_neptuno cp; # IDCliente, NombreCompania, Direccion, Ciudad, 
+
+SELECT cp.IDCliente, upper(cp.nombrecompania) AS `empresa`, concat_ws(" - ", cp.direccion, cp.ciudad, cp.pais) AS `Ubicacion`
+FROM clientes_neptuno cp;
+
+SELECT lower(cp.IDCliente) AS `CODIGO` , upper(cp.nombrecompania) AS `empresa`, concat_ws(" - ", cp.direccion, cp.ciudad, cp.pais) AS `Ubicacion`
+FROM clientes_neptuno cp;
+
+SELECT n.fecha, LEFT(n.sexo, 1) as `sexo`, LEFT(n.tipo_parto, 1) AS `TIPO` FROM nacimientos n;
+
+SELECT upper(concat(LEFT(c.ciudad, 1), LEFT(c.PAIS, 1), RIGHT(c.pais, 2))) AS `CODIGO` FROM clientes_neptuno c;
+
+SELECT n.fecha, LEFT(n.sexo, 1) AS `sexo`, LEFT(n.tipo_parto, 1) AS `TIPO`, replace(n.nacionalidad, "Chilena", "Ciudadana") AS `Nacionalidad`
+FROM nacimientos n;
