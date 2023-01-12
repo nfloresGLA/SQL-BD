@@ -126,3 +126,24 @@ DATE_ADD(pn.fechapedido, interval 30 DAY) AS `PRIMER VENCIMIENTO`,
 DATE_ADD(pn.fechapedido, interval 2 MONTH) AS `SEGUNDO VENCIMIENTO`
 FROM PEDIDOS_NEPTUNO pn
 GROUP BY pn.fechapedido;
+
+SELECT pn.cargo, ROUND((pn.cargo * 0.21), 2) AS `IVA` FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.cargo
+ORDER BY pn.cargo DESC;
+
+SELECT pn.cargo, ROUND(sum(pn.cargo * 1.21), 2) AS `NETO A PAGAR` FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.cargo
+ORDER BY pn.cargo DESC;
+
+SELECT pn.cargo, ROUND(sum(pn.cargo * 1.21), 2) AS `NETO A PAGAR`, FLOOR(ROUND(sum(pn.cargo * 1.21), 2)) AS `REDONDEO A FAVOR CLIENTE`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.cargo
+ORDER BY pn.cargo DESC;
+
+SELECT pn.cargo, ROUND(sum(pn.cargo * 1.21), 2) AS `NETO A PAGAR`,
+FLOOR(ROUND(sum(pn.cargo * 1.21), 2)) AS `REDONDEO A FAVOR CLIENTE`, # FLOOR = REDONDEA PARA ABAJO
+CEIL(ROUND(sum(pn.cargo * 1.21), 2)) AS `REDONDEO A FAVOR EMPRESA` # CEIL = REDEONDEA PARA ARRIBA
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.cargo
+ORDER BY pn.cargo DESC;
+
