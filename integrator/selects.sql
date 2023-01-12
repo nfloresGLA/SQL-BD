@@ -147,3 +147,43 @@ FROM PEDIDOS_NEPTUNO pn
 GROUP BY pn.cargo
 ORDER BY pn.cargo DESC;
 
+SELECT COUNT(*) FROM PEDIDOS_NEPTUNO pn;
+
+SELECT COUNT(*) AS `ENTREGAS SPEEDY` FROM PEDIDOS_NEPTUNO pn
+WHERE pn.transportista = "SPEEDY EXPRESS";
+
+SELECT COUNT(*) AS `VENTAS` FROM PEDIDOS_NEPTUNO pn
+WHERE pn.empleado LIKE "C%";
+
+SELECT ROUND(AVG(pn.preciounidad), 2) AS `PROMEDIO`FROM PRODUCTOS_NEPTUNO pn;
+SELECT ROUND(MIN(pn.preciounidad), 2) AS `PRECIO MAS BAJO`FROM PRODUCTOS_NEPTUNO pn;
+SELECT ROUND(MAX(pn.preciounidad), 2) AS `PRECIO MAS ALTO`FROM PRODUCTOS_NEPTUNO pn;
+
+SELECT pn.nombrecategoria, ROUND(MAX(pn.preciounidad), 2) AS `PRECIO PROMEDIO`FROM PRODUCTOS_NEPTUNO pn
+GROUP BY pn.nombrecategoria;
+
+SELECT np.transportista, COUNT(*) AS `Entregas` FROM PEDIDOS_NEPTUNO np
+GROUP BY np.transportista;
+
+SELECT n.sexo, COUNT(*) AS `NACIMIENTOS` FROM NACIMIENTOS n
+GROUP BY n.sexo; 
+
+SELECT pn.nombrecompania AS `CLIENTE`, ROUND(sum(pn.cargo), 2) AS `TOTAL GASTOS` FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.nombrecompania;
+
+SELECT p.seccion, COUNT(*) AS `CANTIDAD DE PRODUCTOS` FROM PRODUCTOS p # COD_PRODUCTO, SECCION, NOMBRE, IMPORTADO, ORIGEN, DIA, MES, ANO
+GROUP BY p.seccion;
+
+SELECT year(pn.fechapedido) AS `AÑO`, monthname(pn.fechapedido) AS `MES`, COUNT(*) AS `VENTAS`
+FROM pedidos_neptuno pn
+GROUP BY AÑO, MES
+ORDER BY AÑO, MONTH(pn.fechapedido);
+
+SELECT * FROM PEDIDOS_NEPTUNO pn; # IdPedido, NombreCompania, Empleado, FechaPedido, Transportista, Cargo
+SELECT * FROM PEDIDOS_NEPTUNO; # IdPedido, NombreCompania, Empleado, FechaPedido, Transportista, Cargo
+
+SELECT ROUND(sum(pn.cargo), 2) AS `TOTAL FACTURADO`,
+ROUND(AVG(pn.cargo), 2) AS `PROMEDIO DE FACTURACION`,
+ROUND(MAX(pn.cargo), 2) AS `MEJOR VENTA`
+FROM PEDIDOS_NEPTUNO pn
+GROUP BY pn.empleado;
