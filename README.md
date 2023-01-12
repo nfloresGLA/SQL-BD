@@ -20,6 +20,7 @@ estructura y se cargarán datos en ellas.
 
 ## Carpetas:
 ~~~ js
+extras: archivos complementarios (csv y sql)
 integrator: fuentes (.sql)
 modules: archivos PDF de cada modulo
 UML: diagrama del proyecto
