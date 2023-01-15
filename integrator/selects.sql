@@ -184,6 +184,14 @@ SELECT * FROM PEDIDOS_NEPTUNO; # IdPedido, NombreCompania, Empleado, FechaPedido
 
 SELECT ROUND(sum(pn.cargo), 2) AS `TOTAL FACTURADO`,
 ROUND(AVG(pn.cargo), 2) AS `PROMEDIO DE FACTURACION`,
-ROUND(MAX(pn.cargo), 2) AS `MEJOR VENTA`
+ROUND(MAX(pn.cargo), 2) AS `MEJOR VENTA`,
+ROUND(MIN(pn.cargo), 2) AS `PEOR VENTA`,
+COUNT(pn.cargo) AS `CANTIDAD DE VENTAS`
 FROM PEDIDOS_NEPTUNO pn
 GROUP BY pn.empleado;
+
+# ------------------------------ MODULO 4 ------------------------------ #
+
+SELECT COUNT(*) FROM varones;
+SELECT COUNT(*) FROM mujeres;
+SELECT COUNT(*) FROM indeterminados;

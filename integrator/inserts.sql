@@ -22,3 +22,19 @@ INSERT INTO `laboratorio`.`clientes` VALUES ('26', 'Carlos', 'Garcia', '23-42321
 INSERT INTO `laboratorio`.`clientes` VALUES ('50', 'Micaela', 'Altieri', '23-22885566-5', 'Santamarina 1255', 'GBA');
 
 SELECT * FROM clientes;
+
+# ------------------------------ MODULO 4 ------------------------------ #
+
+CREATE TABLE varones
+SELECT * FROM nacimientos n
+WHERE n.sexo = "MASCULINO";
+
+CREATE TABLE mujeres
+SELECT * FROM nacimientos n
+WHERE n.sexo = "FEMENINO";
+
+CREATE TABLE indeterminados
+SELECT * FROM nacimientos n
+WHERE n.sexo = "INDETERMINADO";
+
+DROP TABLE NACIMIENTOS;
