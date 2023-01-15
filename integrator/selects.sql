@@ -195,3 +195,10 @@ GROUP BY pn.empleado;
 SELECT COUNT(*) FROM varones;
 SELECT COUNT(*) FROM mujeres;
 SELECT COUNT(*) FROM indeterminados;
+
+SELECT * FROM empleados;
+SELECT * FROM clientes;
+SELECT * FROM productos;
+SELECT * FROM productos_neptuno;
+SELECT * FROM proveedores;
+SELECT * FROM productos_suspendidos;

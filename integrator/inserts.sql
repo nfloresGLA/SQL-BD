@@ -37,4 +37,6 @@ CREATE TABLE indeterminados
 SELECT * FROM nacimientos n
 WHERE n.sexo = "INDETERMINADO";
 
-DROP TABLE NACIMIENTOS;
+CREATE TABLE productos_suspendidos
+SELECT * FROM productos_neptuno
+WHERE suspendido = 'SI';
