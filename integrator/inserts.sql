@@ -40,3 +40,9 @@ WHERE n.sexo = "INDETERMINADO";
 CREATE TABLE productos_suspendidos
 SELECT * FROM productos_neptuno
 WHERE suspendido = 'SI';
+
+INSERT INTO productos_suspendidos 
+(idproducto, nombreproducto, nombrecontacto, nombrecategoria, preciounidad, suspendido, idproveedor)
+SELECT idproducto,  nombreproducto, nombrecontacto, nombrecategoria, preciounidad, suspendido, idproveedor 
+FROM productos_neptuno 
+WHERE suspendido = 'SI';

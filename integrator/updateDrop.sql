@@ -83,8 +83,7 @@ UPDATE clientes
 SET ciudad = 
 CONCAT(UPPER(LEFT(ciudad, 1)), LOWER(SUBSTRING(ciudad, 2, LENGTH(ciudad))));
 
+UPDATE productos_neptuno SET suspendido = 'SI' 
+WHERE idproveedor = 1;
 
-
-
-
-
+DELETE FROM productos_neptuno WHERE suspendido = 'SI';
