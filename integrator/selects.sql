@@ -202,3 +202,35 @@ SELECT * FROM productos;
 SELECT * FROM productos_neptuno;
 SELECT * FROM proveedores;
 SELECT * FROM productos_suspendidos;
+
+# ------------------------------ MODULO 5 ------------------------------ #
+SELECT * FROM productos_neptuno np # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+WHERE np.precioUnidad > (SELECT round(avg(np.precioUnidad), 2) FROM productos_neptuno np)
+ORDER BY np.nombreProducto;
+
+SELECT * FROM productos_neptuno np
+WHERE np.preciounidad > (SELECT max(ps.precioUnidad) FROM productos_suspendidos ps)
+ORDER BY np.preciounidad DESC;
+
+SELECT * FROM varones v
+WHERE v.semanas < (SELECT MIN(i.semanas) FROM indeterminados i);
+
+SELECT * FROM productos_neptuno np
+WHERE np.nombreProducto LIKE concat((SELECT LEFT(e.nombre_empleado, 1) FROM empleados e
+WHERE e.idempleado = 8), "%")
+ORDER BY np.nombreProducto ASC;
+
+SELECT * FROM productos_neptuno np # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+WHERE np.idProveedor = (SELECT MAX(p.idproveedor) FROM proveedores p)
+ORDER BY np.nombreProducto ASC;
+
+SELECT * FROM productos_neptuno np
+WHERE np.nombreCategoria = ("BEBIDAS") AND np.preciounidad > (SELECT MAX(np.preciounidad) FROM productos_neptuno np
+WHERE np.nombreCategoria = ("CONDIMENTOS"));
+
+SELECT * FROM mujeres m
+WHERE m.edad_madre > (SELECT MAX(v.edad_madre) FROM varones v);
+
+SELECT * FROM clientes_neptuno cp # IDCliente, NombreCompania, Direccion, Ciudad, Pais
+WHERE cp.nombreCompania IN (SELECT cp.nombreCompania FROM pedidos_neptuno cp # IdPedido, NombreCompania, Empleado, FechaPedido, Transportista, Cargo
+WHERE cp.cargo > 500);
