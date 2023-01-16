@@ -263,3 +263,42 @@ CASE
 END AS `TIPO`
 FROM productos_neptuno pn # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
 ORDER BY pn.preciounidad DESC;
+
+SELECT * FROM varones UNION SELECT * FROM mujeres UNION SELECT * FROM indeterminados;
+
+SELECT * FROM varones
+	WHERE RIGHT(LEFT(fecha, 5), 1) = 9 AND semanas > 40 AND nacionalidad = "Chilena" AND estado_civil_madre = "Casada"
+		UNION 
+SELECT * FROM mujeres
+	WHERE RIGHT(LEFT(fecha, 5), 1) = 9 AND semanas > 40 AND nacionalidad = "Chilena" AND estado_civil_madre = "Casada"
+		UNION 
+SELECT * FROM indeterminados
+	WHERE RIGHT(LEFT(fecha, 5), 1) = 9 AND semanas > 40 AND nacionalidad = "Chilena" AND estado_civil_madre = "Casada";
+
+SELECT *, 'A LA VENTA' AS `condicion` FROM productos_neptuno # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+WHERE preciounidad > 80
+	UNION
+SELECT *, 'SUSPENDIDO' AS `condicion` FROM productos_suspendidos
+WHERE preciounidad > 80
+ORDER BY nombreproducto ASC;
+
+SELECT * FROM productos_neptuno # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+WHERE nombreCategoria = "BEBIDAS"
+	UNION
+SELECT * FROM productos_suspendidos
+WHERE nombreCategoria = "BEBIDAS"
+ORDER BY nombreproducto ASC;
+
+SELECT * FROM productos_neptuno # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+WHERE nombreCategoria = "BEBIDAS"
+	UNION
+SELECT * FROM productos_suspendidos
+WHERE nombreCategoria = "BEBIDAS"
+ORDER BY nombreproducto ASC;
+
+SELECT * FROM productos_neptuno # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+WHERE nombreCategoria = "BEBIDAS"
+	UNION ALL
+SELECT * FROM productos_suspendidos
+WHERE nombreCategoria = "BEBIDAS"
+ORDER BY nombreproducto ASC;

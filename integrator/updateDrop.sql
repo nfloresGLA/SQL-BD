@@ -87,3 +87,10 @@ UPDATE productos_neptuno SET suspendido = 'SI'
 WHERE idproveedor = 1;
 
 DELETE FROM productos_neptuno WHERE suspendido = 'SI';
+
+# ------------------------------ MODULO 5 ------------------------------ #
+
+INSERT INTO productos_suspendidos
+SELECT * FROM productos_neptuno WHERE idproducto = 43;
+
+DELETE FROM productos_suspendidos WHERE idproducto = 43;
