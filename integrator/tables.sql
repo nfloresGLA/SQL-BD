@@ -107,3 +107,9 @@ DROP SCHEMA laboratorio; # PARA PODER REALIZAR EL BACKUP CORRESPONDIENTE
 SHOW DATABASES; # compruebo si se genero la base de datos correctamente del BACKUP
 
 USE `laboratorio`; # RE-confirmacion
+
+# ------------------------------ MODULO 5 ------------------------------ #
+
+CREATE TABLE equipos(
+ equipo varchar(20) primary key
+)

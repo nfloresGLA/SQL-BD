@@ -302,3 +302,10 @@ WHERE nombreCategoria = "BEBIDAS"
 SELECT * FROM productos_suspendidos
 WHERE nombreCategoria = "BEBIDAS"
 ORDER BY nombreproducto ASC;
+
+SELECT * FROM equipos; # equipo
+
+SELECT * FROM equipos e1
+CROSS JOIN equipos e2
+WHERE e1.equipo != e2.equipo
+ORDER BY e1.equipo;

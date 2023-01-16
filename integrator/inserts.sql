@@ -46,3 +46,8 @@ INSERT INTO productos_suspendidos
 SELECT idproducto,  nombreproducto, nombrecontacto, nombrecategoria, preciounidad, suspendido, idproveedor 
 FROM productos_neptuno 
 WHERE suspendido = 'SI';
+
+# ------------------------------ MODULO 5 ------------------------------ #
+
+INSERT INTO equipos VALUES ("ARGENTINA"), ("BRASIL"), ("PARAGUAY"), 
+("CHILE"), ("URUGUAY"), ("COLOMBIA"), ("ECUADOR"), ("PERU"), ("BOLIVIA"), ("VENEZUELA");
