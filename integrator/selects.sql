@@ -309,3 +309,45 @@ SELECT * FROM equipos e1
 CROSS JOIN equipos e2
 WHERE e1.equipo != e2.equipo
 ORDER BY e1.equipo;
+
+ # IdProveedor, NombreContacto, CargoContacto, Direccion, Ciudad, Region, Pais = PROVEEDORES
+ # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor = PRODUCTOS NEPTUNO
+ 
+SELECT p.nombrecontacto, pn.idproducto, pn.nombreproducto, pn.preciounidad FROM proveedores p
+INNER JOIN productos_neptuno pn ON pn.idproveedor = p.idproveedor;
+
+SELECT p.nombrecontacto, pn.idproducto, pn.nombreproducto, pn.preciounidad FROM proveedores p, productos_neptuno pn
+WHERE pn.idproveedor = p.idproveedor;
+
+# COD_CLIENTE, EMPRESA, DIRECCION, CIUDAD, telefono, RESPONSABLE, tipo = CLIENTES
+# NUMERO_PEDIDO, CODIGO_CLIENTE, FECHA_PEDIDO, FORMA_PAGO, ENVIADO = PEDIDOS
+
+SELECT c.empresa, p.numero_pedido, p.fecha_pedido, p.forma_pago 
+FROM clientes c
+INNER JOIN pedidos p ON p.codigo_cliente = c.cod_cliente
+ORDER BY c.empresa ASC;
+
+SELECT c.empresa, p.numero_pedido, p.fecha_pedido, p.forma_pago 
+FROM clientes c
+LEFT JOIN pedidos p ON p.codigo_cliente = c.cod_cliente
+WHERE p.numero_pedido IS NULL
+ORDER BY c.empresa ASC;
+
+SELECT c.empresa
+FROM clientes c
+LEFT JOIN pedidos p ON p.codigo_cliente = c.cod_cliente
+WHERE p.numero_pedido IS NULL
+ORDER BY c.empresa ASC;
+
+SELECT * FROM proveedores; # IdProveedor, NombreContacto, CargoContacto, Direccion, Ciudad, Region, Pais
+SELECT * FROM productos_neptuno; # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+
+SELECT * 
+FROM proveedores p 
+LEFT JOIN productos_neptuno pn ON pn.idproveedor = p.idproveedor
+WHERE pn.idproducto IS NULL;
+
+SELECT * 
+FROM proveedores p 
+RIGHT JOIN productos_neptuno pn ON pn.idproveedor = p.idproveedor
+WHERE p.idproveedor IS NULL;
