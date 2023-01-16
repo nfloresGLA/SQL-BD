@@ -234,3 +234,32 @@ WHERE m.edad_madre > (SELECT MAX(v.edad_madre) FROM varones v);
 SELECT * FROM clientes_neptuno cp # IDCliente, NombreCompania, Direccion, Ciudad, Pais
 WHERE cp.nombreCompania IN (SELECT cp.nombreCompania FROM pedidos_neptuno cp # IdPedido, NombreCompania, Empleado, FechaPedido, Transportista, Cargo
 WHERE cp.cargo > 500);
+
+SELECT np.idcliente, np.nombrecompania, np.ciudad, np.pais,
+CASE
+	WHEN np.pais IN ("Mexico", "Canada", "USA") THEN "America del norte"
+	WHEN np.pais IN ("Argentina", "Brasil", "Venezuela") THEN "America del sur"
+	ELSE "Europa"
+END AS `Continente`
+FROM clientes_neptuno np
+ORDER BY continente ASC, np.pais;
+
+SELECT pn.idpedido, pn.nombrecompania, pn.fechapedido, pn.cargo, 
+CASE
+	WHEN pn.cargo > 700 THEN "EXCELENTE"
+	WHEN pn.cargo BETWEEN 500 AND 700 THEN "MUY BUENO"
+	WHEN pn.cargo BETWEEN 250 AND 500 THEN "BUENO"
+	WHEN pn.cargo BETWEEN 50 AND 250 THEN "REGULAR"
+    WHEN pn.cargo < 50 THEN "MALO"
+END AS `EVALUACION`
+FROM pedidos_neptuno pn 
+ORDER BY pn.cargo DESC;
+
+SELECT pn.idproducto, pn.nombreproducto, pn.nombrecategoria, pn.preciounidad,
+CASE
+	WHEN pn.preciounidad > 100 THEN "DELUXE"
+    WHEN pn.preciounidad BETWEEN 10 AND 100 THEN "REGULAR"
+    WHEN pn.preciounidad < 10 THEN "ECONOMICO"
+END AS `TIPO`
+FROM productos_neptuno pn # IdProducto, NombreProducto, NombreContacto, NombreCategoria, PrecioUnidad, suspendido, IdProveedor
+ORDER BY pn.preciounidad DESC;
