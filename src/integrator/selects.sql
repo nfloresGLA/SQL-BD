@@ -579,3 +579,86 @@ FROM proveedores p
 RIGHT JOIN productos_neptuno pn
     ON pn.idproveedor = p.idproveedor
 WHERE p.idproveedor IS NULL;
+
+-- ============================== EJEMPLOS EXTRA ============================== 
+
+-- Top clientes con mayor facturacion total
+SELECT
+    pn.nombrecompania AS cliente,
+    ROUND(SUM(pn.cargo), 2) AS total_facturado,
+    COUNT(*) AS cantidad_pedidos
+FROM pedidos_neptuno pn
+GROUP BY pn.nombrecompania
+ORDER BY total_facturado DESC
+LIMIT 10;
+
+-- Ticket promedio por transportista
+SELECT
+    pn.transportista,
+    ROUND(AVG(pn.cargo), 2) AS ticket_promedio,
+    ROUND(SUM(pn.cargo), 2) AS total_transportado
+FROM pedidos_neptuno pn
+GROUP BY pn.transportista
+ORDER BY ticket_promedio DESC;
+
+-- Productos activos mas caros por categoria
+SELECT
+    pn.nombrecategoria,
+    MAX(pn.preciounidad) AS precio_maximo_activo
+FROM productos_neptuno pn
+WHERE pn.suspendido = 'NO'
+GROUP BY pn.nombrecategoria
+ORDER BY precio_maximo_activo DESC;
+
+-- Distribucion de suspendidos por proveedor
+SELECT
+    pn.idproveedor,
+    SUM(CASE WHEN pn.suspendido = 'SI' THEN 1 ELSE 0 END) AS suspendidos,
+    SUM(CASE WHEN pn.suspendido = 'NO' THEN 1 ELSE 0 END) AS activos
+FROM productos_neptuno pn
+GROUP BY pn.idproveedor
+ORDER BY suspendidos DESC, activos DESC;
+
+-- Ranking simple de equipos por puntos y diferencia de gol
+SELECT
+    p.equipo,
+    p.puntos,
+    (p.goles_favor - p.goles_contra) AS diferencia_gol,
+    p.partidos_jugados
+FROM posiciones p
+ORDER BY p.puntos DESC, diferencia_gol DESC, p.goles_favor DESC;
+
+-- Historial de partidos con resultado textual
+SELECT
+    pa.fecha_partido,
+    pa.local_equipo,
+    pa.visitante_equipo,
+    CONCAT(pa.goles_local, '-', pa.goles_visitante) AS marcador,
+    CASE
+        WHEN pa.goles_local > pa.goles_visitante THEN CONCAT('GANO ', pa.local_equipo)
+        WHEN pa.goles_local < pa.goles_visitante THEN CONCAT('GANO ', pa.visitante_equipo)
+        ELSE 'EMPATE'
+    END AS resultado
+FROM partidos pa
+ORDER BY pa.fecha_partido ASC;
+
+-- Clientes de Espana sin pedidos registrados
+SELECT
+    c.cod_cliente,
+    c.empresa,
+    c.ciudad
+FROM clientes c
+LEFT JOIN pedidos p
+    ON p.codigo_cliente = c.cod_cliente
+WHERE p.numero_pedido IS NULL
+ORDER BY c.empresa;
+
+-- Ventas acumuladas por anio con filtro de volumen
+SELECT
+    YEAR(pn.fechapedido) AS anio,
+    ROUND(SUM(pn.cargo), 2) AS total_anual,
+    COUNT(*) AS cantidad_pedidos
+FROM pedidos_neptuno pn
+GROUP BY YEAR(pn.fechapedido)
+HAVING SUM(pn.cargo) > 10000
+ORDER BY anio;
