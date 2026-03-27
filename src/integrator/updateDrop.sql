@@ -94,3 +94,37 @@ INSERT INTO productos_suspendidos
 SELECT * FROM productos_neptuno WHERE idproducto = 43;
 
 DELETE FROM productos_suspendidos WHERE idproducto = 43;
+
+# ------------------------------ EJEMPLOS EXTRA ------------------------------ #
+
+-- Normaliza tipos nulos para facilitar segmentacion comercial
+UPDATE clientes
+SET tipo = 'REG'
+WHERE tipo IS NULL;
+
+-- Vista previa de pedidos sin cliente asociado
+SELECT p.*
+FROM pedidos p
+LEFT JOIN clientes c
+	ON c.cod_cliente = p.codigo_cliente
+WHERE c.cod_cliente IS NULL;
+
+-- Ejemplo de limpieza de pedidos huerfanos
+DELETE p
+FROM pedidos p
+LEFT JOIN clientes c
+	ON c.cod_cliente = p.codigo_cliente
+WHERE c.cod_cliente IS NULL;
+
+-- Transaccion de ejemplo para actualizar stock en bloque
+START TRANSACTION;
+
+UPDATE articulos
+SET stock = stock + 10
+WHERE idArticulo IN (95, 157, 335);
+
+SELECT idArticulo, nombre, stock
+FROM articulos
+WHERE idArticulo IN (95, 157, 335);
+
+COMMIT;
