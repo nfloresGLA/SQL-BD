@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `laboratorio`.`Clientes` (
 	CUIT varchar(16) unique,
 	Direccion varchar(50),
 	Observaciones varchar(225),
+	Categoria varchar(20) default 'GENERAL',
 	PRIMARY KEY (IDCliente)
 )
 ENGINE = InnoDB;
@@ -112,4 +113,31 @@ USE `laboratorio`; # RE-confirmacion
 
 CREATE TABLE equipos(
  equipo varchar(20) primary key
-)
+);
+
+CREATE TABLE IF NOT EXISTS partidos(
+ idPartido int auto_increment primary key,
+ local_equipo varchar(20) not null,
+ visitante_equipo varchar(20) not null,
+ goles_local tinyint unsigned not null,
+ goles_visitante tinyint unsigned not null,
+ fecha_partido date not null,
+ CONSTRAINT fk_partidos_local FOREIGN KEY (local_equipo) REFERENCES equipos(equipo),
+ CONSTRAINT fk_partidos_visitante FOREIGN KEY (visitante_equipo) REFERENCES equipos(equipo)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS posiciones(
+ equipo varchar(20) primary key,
+ puntos tinyint unsigned default 0,
+ partidos_jugados tinyint unsigned default 0,
+ partidos_ganados tinyint unsigned default 0,
+ partidos_empatados tinyint unsigned default 0,
+ partidos_perdidos tinyint unsigned default 0,
+ goles_favor tinyint unsigned default 0,
+ goles_contra tinyint unsigned default 0,
+ CONSTRAINT fk_posiciones_equipo FOREIGN KEY (equipo) REFERENCES equipos(equipo)
+) ENGINE = InnoDB;
+
+# Ejemplos de indices para consultas frecuentes
+CREATE INDEX idx_facturas_fecha ON facturas(fecha);
+CREATE INDEX idx_facturas_cliente ON facturas(idCliente);
